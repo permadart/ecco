@@ -16,7 +16,7 @@ Add `ecco` to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  ecco: ^0.0.1
+  ecco: ^0.0.1+1
 ```
 
 Then run:
@@ -33,33 +33,25 @@ flutter pub get
 
 ```dart
 class CounterModel {
-  final int value;
-  CounterModel(this.value);
+  final int count;
+  CounterModel({this.count = 0});
 }
 
-class CounterViewModel {
-  void increment(EccoNotifier<CounterModel> model) {
-    model.ripple(CounterModel(model.state.value + 1));
+class CounterViewModel extends EccoNotifier<CounterModel> {
+  CounterViewModel() : super(CounterModel());
+
+  void increment() {
+    ripple(CounterModel(count: state.count + 1));
   }
 }
 ```
 
-2. Create `EccoNotifier`s for your model and viewmodel:
-
-```dart
-final counterModel = EccoNotifier<CounterModel>(CounterModel(0));
-final counterViewModel = EccoNotifier<CounterViewModel>(CounterViewModel());
-```
-
-3. Wrap your app with `EccoProvider`s:
+2. Wrap your app with EccoProvider:
 
 ```dart
 EccoProvider<CounterModel>(
-  notifier: counterModel,
-  child: EccoProvider<CounterViewModel>(
-    notifier: counterViewModel,
-    child: MyApp(),
-  ),
+  notifier: CounterViewModel(),
+  child: MyApp(),
 )
 ```
 
@@ -70,7 +62,7 @@ Use `EccoBuilder` to rebuild parts of your UI when the state changes:
 ```dart
 EccoBuilder<CounterModel>(
   builder: (context, model) {
-    return Text('Count: ${model.value}');
+    return Text('Count: ${model.count}');
   },
 )
 ```
@@ -83,7 +75,7 @@ Use `EccoConsumer` to access both model and viewmodel in a widget:
 EccoConsumer<CounterModel, CounterViewModel>(
   builder: (context, model, viewModel) {
     return ElevatedButton(
-      onPressed: () => viewModel.increment(EccoProvider.of<CounterModel>(context)),
+      onPressed: viewModel.increment,
       child: Text('Increment'),
     );
   },
