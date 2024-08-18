@@ -5,6 +5,18 @@ All notable changes to the Ecco package will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+[0.0.1+2] - 2024-08-18
+
+### Added
+- Introduced EccoExtension on BuildContext for easier access to Ecco notifiers using context.ecco<T>().
+
+### Changed
+- Updated EccoNotifier to include more robust error handling for disposed notifiers.
+- Improved type safety in EccoProvider.of<T>() method.
+
+### Fixed
+- Corrected inconsistencies in example code within main.dart.
+
 ## [0.0.1+1] - 2024-08-13
 
 - Updated README.md with corrected examples for EccoBuilder and EccoConsumer
