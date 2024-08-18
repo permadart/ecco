@@ -61,8 +61,8 @@ class CounterView extends StatelessWidget {
               children: [
                 // Finds the notifier given by the closest EccoProvider<T>
                 ElevatedButton(
-                  onPressed: context.ecco<CounterViewModel>().increment,
-                  child: const Text('Increment'),
+                  onPressed: context.ecco<CounterViewModel>().decrement,
+                  child: const Text('Decrement'),
                 ),
                 const SizedBox(width: 20),
                 // Has a reference to both the Model and the ViewModel

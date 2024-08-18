@@ -302,20 +302,53 @@ class Eccoes {
   }
 }
 
-/// Extension on [BuildContext] for convenient access to Ecco notifiers.
+/// Extension on [BuildContext] that provides convenient access to Ecco notifiers.
+///
+/// This extension allows for easy retrieval of ViewModel instances from the widget tree
+/// without explicitly specifying the associated Model type.
 extension EccoExtension on BuildContext {
-  /// Retrieves the [EccoNotifier] of type [T] from the widget tree.
+  /// Retrieves the nearest [EccoNotifier] of type [VM] from the widget tree.
   ///
-  /// Throws a [FlutterError] if the notifier is not found or is of the wrong type.
-  T ecco<T>() {
-    final notifier = EccoProvider.of<T>(this);
-    if (notifier is T) {
-      return notifier as T;
-    } else {
-      throw FlutterError(
-        'EccoProvider.of<$T> is not of type $T.\n'
-        'Make sure you are using the correct type when calling context.ecco<$T>().',
-      );
+  /// This method searches up the widget tree for the nearest [EccoProvider] that
+  /// contains a notifier of the specified ViewModel type [VM]. It allows for
+  /// accessing the ViewModel without needing to know the associated Model type.
+  ///
+  /// Example usage:
+  /// ```dart
+  /// final viewModel = context.ecco<MyViewModel>();
+  /// viewModel.someMethod();
+  /// ```
+  ///
+  /// Throws a [FlutterError] if no matching [EccoProvider] is found in the widget tree.
+  ///
+  /// Type parameters:
+  ///   [VM]: The type of the ViewModel to retrieve. Must extend [EccoNotifier].
+  ///
+  /// Returns:
+  ///   The nearest [EccoNotifier] of type [VM] found in the widget tree.
+  VM ecco<VM extends EccoNotifier>() {
+    EccoProvider? provider;
+    bool foundProvider = false;
+
+    visitAncestorElements((element) {
+      if (element.widget is EccoProvider) {
+        provider = element.widget as EccoProvider;
+        if (provider!.notifier is VM) {
+          foundProvider = true;
+          return false;
+        }
+      }
+      return true;
+    });
+
+    if (foundProvider && provider != null) {
+      return provider!.notifier as VM;
     }
+
+    throw FlutterError(
+      'No EccoProvider with a notifier of type $VM found in the widget tree.\n'
+      'Make sure there is an EccoProvider with a $VM notifier above the current widget in the widget tree.\n'
+      'For more information, see: https://pub.dev/packages/ecco',
+    );
   }
 }
