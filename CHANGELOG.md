@@ -17,15 +17,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The `ecco` extension method provides a more intuitive API for accessing ViewModels within the Ecco MVVM architecture.
 - Usage example: `final viewModel = context.ecco<MyViewModel>();`
 
-[0.0.1+4] - 2024-08-18
+## [0.0.1+4] - 2024-08-18
 ### Updated
 - Updated the homepage in pubspec.yaml
 
-[0.0.1+3] - 2024-08-18
+## [0.0.1+3] - 2024-08-18
 ### Updated
 - README.md was updated to improve the package's documentation.
 
-[0.0.1+2] - 2024-08-18
+## [0.0.1+2] - 2024-08-18
 
 ### Added
 - Introduced EccoExtension on BuildContext for easier access to Ecco notifiers using context.ecco<T>().

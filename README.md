@@ -82,8 +82,8 @@ class CounterView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: context.ecco<CounterViewModel>().increment,
-                  child: const Text('Increment'),
+                  onPressed: context.ecco<CounterViewModel>().decrement,
+                  child: const Text('Decrement'),
                 ),
                 const SizedBox(width: 20),
                 EccoConsumer<CounterModel, CounterViewModel>(
