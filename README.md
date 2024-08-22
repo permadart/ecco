@@ -17,7 +17,7 @@ Add `ecco` to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  ecco: ^0.0.1+5
+  ecco: ^0.0.1+6
 ```
 
 Then run:

@@ -1,6 +1,6 @@
 name: ecco
 description: A simple, MVVM-focused state management solution for Flutter.
-version: 0.0.1+5
+version: 0.0.1+6
 homepage: https://github.com/permadart/ecco
 
 environment:

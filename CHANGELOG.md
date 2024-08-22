@@ -5,6 +5,11 @@ All notable changes to the Ecco package will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.1+6] - 2024-08-22
+
+### Updated
+- README.md was updated to improve the package's documentation.
+
 ## [0.0.1+5] - 2024-08-18
 
 ### Fixed
@@ -22,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated the homepage in pubspec.yaml
 
 ## [0.0.1+3] - 2024-08-18
+
 ### Updated
 - README.md was updated to improve the package's documentation.
 
