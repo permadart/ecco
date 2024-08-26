@@ -23,7 +23,7 @@ Add `ecco_lint` to your `pubspec.yaml` file:
 
 ```yaml
 dev_dependencies:
-  ecco_lint: ^0.0.1
+  ecco_lint: ^0.0.1+1
 ```
 
 Then run:
