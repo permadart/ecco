@@ -19,28 +19,29 @@ ecco_lint provides custom lint rules and assists to help developers use the Ecco
 
 ## Installation
 
-Add `ecco_lint` to your `pubspec.yaml` file:
+Run this command in the root of your Flutter project:
 
-```yaml
-dev_dependencies:
-  ecco_lint: ^0.0.1+1
+```bash
+flutter pub add -d ecco_lint custom_lint
+```
+
+Then edit your `analysis_options.yaml` file and add these lines of code:
+
+```bash
+analyzer:
+  plugins:
+    - custom_lint
 ```
 
 Then run:
 
 ```bash
+flutter clean
 flutter pub get
+dart run custom_lint
 ```
 
-## Usage
-
-To use ecco_lint in your project, add it to your analysis_options.yaml file:
-
-```bash
-include: package:ecco_lint/analysis_options.yaml
-```
-
-This will enable all the lint rules provided by ecco_lint. You can customize which rules to include or exclude in your `analysis_options.yaml` file.
+This will enable all the lint rules provided by `ecco_lint`.
 
 ## Contributing
 Contributions are welcome! Please feel free to submit a Pull Request.

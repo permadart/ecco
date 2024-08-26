@@ -1,6 +1,6 @@
 name: ecco_lint
 description: A custom lint package for the Ecco state management framework in Flutter
-version: 0.0.1+1
+version: 0.0.1+2
 homepage: https://github.com/permadart/ecco
 repository: https://github.com/permadart/ecco/tree/main/packages/ecco_lint
 issue_tracker: https://github.com/permadart/ecco/issues
