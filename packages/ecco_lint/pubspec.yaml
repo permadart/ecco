@@ -1,6 +1,9 @@
 name: ecco_lint
-description: A starting point for Dart libraries or applications.
+description: A custom lint package for the Ecco state management framework in Flutter.
 version: 0.0.1
+homepage: https://github.com/permadart/ecco
+repository: https://github.com/permadart/ecco/tree/main/packages/ecco_lint
+issue_tracker: https://github.com/permadart/ecco/issues
 
 environment:
   sdk: ^3.5.1

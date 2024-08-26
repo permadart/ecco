@@ -10,21 +10,6 @@ Ecco is a simple, MVVM-focused state management solution for Flutter. It provide
 - Customizable logging functionality
 - Built-in support for `Equatable` for efficient state comparisons
 
-## Installation
-
-Add `ecco` to your `pubspec.yaml` file:
-
-```yaml
-dependencies:
-  ecco: ^0.0.1+7
-```
-
-Then run:
-
-```
-flutter pub get
-```
-
 ## Basic Usage
 
 Here's a simple counter app example demonstrating the basic usage of Ecco:
