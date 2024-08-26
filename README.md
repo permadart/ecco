@@ -132,10 +132,10 @@ Key points about `ripple`:
 2. **Efficient Updates:** It only notifies listeners if the new state is different from the current state.
 3. **Immutability:** `ripple` encourages the use of immutable state objects. Instead of modifying the existing state, you create a new state object.
 4. **Usage:** Call `ripple` with a new state object whenever you want to update the state.
-5. **Automatic Rebuilds:** When ripple is called, it automatically triggers a rebuild of all widgets listening to this notifier.
-6. **Equatable Support:** If your state class extends Equatable, ripple will use its equality implementation to determine if the state has changed.
+5. **Automatic Rebuilds:** When `ripple` is called, it automatically triggers a rebuild of all widgets listening to this notifier.
+6. **Equatable Support:** If your state class extends Equatable, `ripple` will use its equality implementation to determine if the state has changed.
 
-By using ripple, you ensure that state updates are handled efficiently and consistently throughout your application.
+By using `ripple`, you ensure that state updates are handled efficiently and consistently throughout your application.
 
 ```dart
 void updateUserName(String newName) {
