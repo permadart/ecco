@@ -1,5 +1,5 @@
 name: ecco_example
-description: An example application for the Ecco package
+description: An example Counter application for the Ecco package
 
 publish_to: 'none'
 

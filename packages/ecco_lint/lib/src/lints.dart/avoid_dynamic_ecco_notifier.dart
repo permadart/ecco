@@ -2,12 +2,7 @@ import 'package:analyzer/error/error.dart';
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
 
-/// A lint rule that warns against using dynamic type for EccoNotifier.
-///
-/// This rule helps maintain type safety by encouraging developers to specify
-/// concrete types for EccoNotifier instances instead of using dynamic.
 class AvoidDynamicEccoNotifier extends DartLintRule {
-  /// Creates a new instance of the AvoidDynamicEccoNotifier lint rule.
   const AvoidDynamicEccoNotifier() : super(code: _code);
 
   static const _code = LintCode(
@@ -22,12 +17,22 @@ class AvoidDynamicEccoNotifier extends DartLintRule {
     ErrorReporter reporter,
     CustomLintContext context,
   ) {
-    context.registry.addInstanceCreationExpression((node) {
-      final type = node.staticType;
-      if (type == null) return;
-
-      if (type.toString().startsWith('EccoNotifier<dynamic>')) {
+    context.registry.addNamedType((node) {
+      final typeString = node.toString();
+      print('Checking named type: $typeString'); // Debug print
+      if (typeString.startsWith('EccoNotifier<dynamic>')) {
+        print('Found EccoNotifier<dynamic>'); // Debug print
         reporter.reportErrorForNode(_code, node);
+      }
+    });
+
+    context.registry.addClassDeclaration((node) {
+      final superclassString = node.extendsClause?.superclass.toString() ?? '';
+      print(
+          'Checking class declaration: ${node.name}, superclass: $superclassString'); // Debug print
+      if (superclassString.startsWith('EccoNotifier<dynamic>')) {
+        print('Found class extending EccoNotifier<dynamic>'); // Debug print
+        reporter.reportErrorForNode(_code, node.extendsClause!.superclass);
       }
     });
   }
