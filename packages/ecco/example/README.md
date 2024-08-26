@@ -22,7 +22,6 @@ This example shows how to:
 2. Use `EccoProvider` to make the state available to the widget tree
 3. Use `EccoBuilder` to rebuild parts of the UI when state changes
 4. Use `EccoConsumer` to access both model and viewmodel in a widget
-5. Enable the debug overlay to visualize state changes
 
 ## Key Code Snippets
 
@@ -65,16 +64,6 @@ EccoConsumer<int, CounterViewModel>(
       child: Text('Increment'),
     );
   },
-)
-```
-
-### Enabling Debug Overlay
-
-Wrap your app with `EccoDebugOverlay`:
-
-```dart
-EccoDebugOverlay(
-  child: MyApp(),
 )
 ```
 

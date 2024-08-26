@@ -26,13 +26,7 @@ class EccoNotifier<T> extends ChangeNotifier {
   final String _id = UniqueKey().toString();
 
   /// Creates a new [EccoNotifier] with the given initial state.
-  ///
-  /// In debug mode, it registers itself with [EccoDebug].
-  EccoNotifier(this._state) {
-    if (isDebugMode()) {
-      EccoDebug.instance._registerNotifier(this);
-    }
-  }
+  EccoNotifier(this._state);
 
   /// Gets the current state.
   ///
@@ -68,7 +62,6 @@ class EccoNotifier<T> extends ChangeNotifier {
       notifyListeners();
       if (isDebugMode()) {
         Eccoes.log('EccoNotifier<$T>: State updated');
-        EccoDebug.instance._notifyStateChange(this);
       }
     }
   }
@@ -76,9 +69,6 @@ class EccoNotifier<T> extends ChangeNotifier {
   @override
   void dispose() {
     _disposed = true;
-    if (isDebugMode()) {
-      EccoDebug.instance._unregisterNotifier(this);
-    }
     super.dispose();
   }
 
@@ -191,69 +181,6 @@ class EccoConsumer<T, VM extends EccoNotifier<T>> extends StatelessWidget {
         return builder(context, notifier.state, notifier);
       },
     );
-  }
-}
-
-/// A singleton class for debugging Ecco notifiers.
-///
-/// Tracks registered notifiers and notifies listeners of changes.
-class EccoDebug {
-  /// The singleton instance of [EccoDebug].
-  static final EccoDebug instance = EccoDebug._();
-
-  EccoDebug._();
-
-  final _notifiers = <Type, Set<EccoNotifier<dynamic>>>{};
-  final _listeners = <VoidCallback>[];
-
-  void _registerNotifier<T>(EccoNotifier<T> notifier) {
-    _notifiers.putIfAbsent(T, () => <EccoNotifier<T>>{}).add(notifier);
-    _notifyListeners();
-  }
-
-  void _unregisterNotifier<T>(EccoNotifier<T> notifier) {
-    final typeSet = _notifiers[T];
-    if (typeSet != null) {
-      typeSet.remove(notifier);
-      if (typeSet.isEmpty) {
-        _notifiers.remove(T);
-      }
-    }
-    _notifyListeners();
-  }
-
-  void _notifyStateChange<T>(EccoNotifier<T> notifier) {
-    _notifyListeners();
-  }
-
-  /// Adds a listener to be notified of changes in the debug state.
-  void addListener(VoidCallback listener) {
-    _listeners.add(listener);
-  }
-
-  /// Removes a previously added listener.
-  void removeListener(VoidCallback listener) {
-    _listeners.remove(listener);
-  }
-
-  void _notifyListeners() {
-    for (final listener in _listeners) {
-      listener();
-    }
-  }
-
-  /// Clears all registered notifiers and listeners.
-  void clearState() {
-    _notifiers.clear();
-    _listeners.clear();
-    _notifyListeners();
-  }
-
-  /// Returns a list of all registered notifiers' data.
-  List<Map<String, dynamic>> getNotifiersData() {
-    return _notifiers.entries.expand((entry) {
-      return entry.value.map((notifier) => notifier.toJson());
-    }).toList();
   }
 }
 

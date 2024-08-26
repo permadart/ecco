@@ -7,7 +7,6 @@ Ecco is a simple, MVVM-focused state management solution for Flutter. It provide
 - Lightweight and easy to understand
 - MVVM architecture support
 - Efficient UI updates with fine-grained rebuilds
-- Debug overlay for real-time state visualization (WIP)
 - Customizable logging functionality
 - Built-in support for `Equatable` for efficient state comparisons
 
@@ -36,7 +35,6 @@ import 'package:ecco/ecco.dart';
 
 void main() {
   Eccoes.enable();
-  Eccoes.setLogLevel(EccoesLogLevel.debug);
   runApp(const MyApp());
 }
 
@@ -48,11 +46,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Ecco MVVM Counter',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: EccoDebugOverlay(
-        child: EccoProvider<CounterModel>(
-          notifier: CounterViewModel(),
-          child: const CounterView(),
-        ),
+      home: EccoProvider<CounterModel>(
+        notifier: CounterViewModel(),
+        child: const CounterView(),
       ),
     );
   }
@@ -208,16 +204,6 @@ ElevatedButton(
 
 This extension method retrieves the `EccoNotifier` of type `T` from the widget tree, allowing for a more concise syntax when accessing notifiers.
 
-## Debug Overlay
-
-Ecco includes a debug overlay to visualize the state of all registered notifiers in real-time. To use it, wrap your app's root widget with `EccoDebugOverlay`:
-
-```dart
-EccoDebugOverlay(
-  child: YourApp(),
-)
-```
-
 ## Logging
 
 Ecco provides customizable logging functionality. Enable logging and set the desired log level in your app's main function:
@@ -225,7 +211,6 @@ Ecco provides customizable logging functionality. Enable logging and set the des
 ```dart
 void main() {
   Eccoes.enable();
-  Eccoes.setLogLevel(EccoesLogLevel.debug);
   runApp(const MyApp());
 }
 ```
@@ -236,8 +221,7 @@ void main() {
 2. Use `EccoBuilder` for widgets that only need to read the state.
 3. Use `EccoConsumer` when you need access to both the state and the notifier.
 4. Leverage the `ecco<T>()` extension method for concise notifier access.
-5. Use the debug overlay during development to visualize state changes.
-6. Always use the `ripple` method to update state in your ViewModels.
+5. Always use the `ripple` method to update state in your ViewModels.
 
 ## License
 

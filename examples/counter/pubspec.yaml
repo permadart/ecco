@@ -9,7 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  ecco: ^0.0.1+5
+  ecco: ^0.0.1+6
 
 dev_dependencies:
   flutter_test:

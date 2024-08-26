@@ -22,7 +22,6 @@ void main() {
   late List<String> logOutput;
 
   setUp(() {
-    EccoDebug.instance.clearState();
     logOutput = [];
     Eccoes.setTestLogCallback((message) {
       logOutput.add(message);
@@ -244,56 +243,6 @@ void main() {
       Eccoes.log('This should not be logged');
 
       expect(logOutput, isEmpty);
-    });
-  });
-
-  group('EccoDebug', () {
-    setUp(() {
-      EccoDebug.instance.clearState();
-    });
-
-    test('tracks notifiers through their lifecycle', () {
-      final debug = EccoDebug.instance;
-
-      expect(debug.getNotifiersData(), isEmpty);
-
-      final notifier1 = EccoNotifier<int>(0);
-      final notifier2 = EccoNotifier<String>('');
-
-      var data = debug.getNotifiersData();
-      expect(data.length, equals(2));
-      expect(data.any((d) => d['type'] == 'int'), isTrue);
-      expect(data.any((d) => d['type'] == 'String'), isTrue);
-
-      notifier1.dispose();
-
-      data = debug.getNotifiersData();
-      expect(data.length, equals(1));
-      expect(data.any((d) => d['type'] == 'String'), isTrue);
-
-      notifier2.dispose();
-
-      expect(debug.getNotifiersData(), isEmpty);
-    });
-
-    test('notifies listeners on state changes', () {
-      final debug = EccoDebug.instance;
-      final notifier = EccoNotifier<int>(0);
-      int listenerCallCount = 0;
-
-      debug.addListener(() {
-        listenerCallCount++;
-      });
-
-      notifier.ripple(1);
-
-      expect(listenerCallCount, equals(1));
-
-      notifier.ripple(2);
-
-      expect(listenerCallCount, equals(2));
-
-      notifier.dispose();
     });
   });
 
