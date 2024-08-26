@@ -1,5 +1,5 @@
-name: ecco_example
-description: An example application for the Ecco package
+name: ecco_link_example
+description: An example application for Ecco's ecco_lint package
 
 publish_to: 'none'
 
