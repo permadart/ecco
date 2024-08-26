@@ -37,7 +37,7 @@ class MissingEccoProvider extends DartLintRule {
         enclosingClass.accept(visitor);
 
         if (!visitor.hasProvider) {
-          reporter.atNode(node, _code);
+          reporter.reportErrorForNode(_code, node);
         }
       }
     });

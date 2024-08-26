@@ -33,7 +33,7 @@ class InvalidRippleUsage extends DartLintRule {
             target.staticType.toString().startsWith('EccoNotifier')) {
           final argument = node.argumentList.arguments.first;
           if (argument is SimpleIdentifier) {
-            reporter.atNode(node, _code);
+            reporter.reportErrorForNode(_code, node);
           }
         }
       }

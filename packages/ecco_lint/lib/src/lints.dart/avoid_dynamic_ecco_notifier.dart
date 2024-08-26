@@ -27,7 +27,7 @@ class AvoidDynamicEccoNotifier extends DartLintRule {
       if (type == null) return;
 
       if (type.toString().startsWith('EccoNotifier<dynamic>')) {
-        reporter.atNode(node, _code);
+        reporter.reportErrorForNode(_code, node);
       }
     });
   }
