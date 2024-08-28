@@ -4,7 +4,12 @@ import 'package:analyzer/error/error.dart';
 import 'package:analyzer/error/listener.dart';
 import 'package:custom_lint_builder/custom_lint_builder.dart';
 
+/// A custom lint rule that checks for invalid usage of the 'ripple' method in EccoNotifier subclasses.
+///
+/// This rule ensures that the 'ripple' method is called with a new state object,
+/// rather than directly passing the current state or this.state.
 class InvalidRippleUsage extends DartLintRule {
+  /// Creates an instance of [InvalidRippleUsage].
   const InvalidRippleUsage() : super(code: _code);
 
   static const _code = LintCode(
@@ -21,39 +26,28 @@ class InvalidRippleUsage extends DartLintRule {
     CustomLintContext context,
   ) {
     context.registry.addMethodInvocation((node) {
-      print('Checking method invocation: ${node.methodName.name}');
       if (node.methodName.name == 'ripple') {
-        print('Found ripple method call');
-        print('Method source: ${node.toSource()}');
-
         final enclosingClass = node.thisOrAncestorOfType<ClassDeclaration>();
-        print('Enclosing class: ${enclosingClass?.name.lexeme}');
 
         if (enclosingClass != null) {
           final classElement = enclosingClass.declaredElement;
-          print('Class element: $classElement');
 
           if (classElement != null &&
               _isEccoNotifierSubtype(classElement.thisType)) {
-            print('Ripple called in EccoNotifier subclass');
             final argument = node.argumentList.arguments.first;
-            print('Ripple argument: ${argument.toSource()}');
             if (_isInvalidRippleArgument(argument)) {
-              print('Reporting invalid ripple usage');
               reporter.reportErrorForNode(_code, node);
-            } else {
-              print('Ripple usage seems valid');
             }
-          } else {
-            print('Ripple not called in EccoNotifier subclass');
           }
-        } else {
-          print('Ripple not called within a class');
         }
       }
     });
   }
 
+  /// Checks if the given type is a subtype of EccoNotifier.
+  ///
+  /// This method recursively checks the superclass hierarchy to determine
+  /// if the type is derived from EccoNotifier.
   bool _isEccoNotifierSubtype(DartType type) {
     if (type.toString().contains('EccoNotifier')) {
       return true;
@@ -65,20 +59,21 @@ class InvalidRippleUsage extends DartLintRule {
     return _isEccoNotifierSubtype(supertype);
   }
 
+  /// Checks if the argument passed to the 'ripple' method is invalid.
+  ///
+  /// An argument is considered invalid if it's a direct reference to 'state'
+  /// or 'this.state'.
   bool _isInvalidRippleArgument(Expression argument) {
     if (argument is SimpleIdentifier && argument.name == 'state') {
-      print('Invalid ripple argument: direct state usage');
       return true;
     }
 
     if (argument is PropertyAccess &&
         argument.propertyName.name == 'state' &&
         argument.target is ThisExpression) {
-      print('Invalid ripple argument: this.state usage');
       return true;
     }
 
-    print('Valid ripple argument');
     return false;
   }
 }

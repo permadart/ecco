@@ -14,7 +14,7 @@ class WrapWithEccoBuilder extends DartAssist {
     SourceRange target,
   ) {
     context.registry.addInstanceCreationExpression((node) {
-      if (!target.intersects(node.constructorName.sourceRange)) return;
+      if (!target.intersects(node.sourceRange)) return;
 
       final changeBuilder = reporter.createChangeBuilder(
         message: 'Wrap with EccoBuilder',

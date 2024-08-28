@@ -2,9 +2,9 @@ import 'package:custom_lint_builder/custom_lint_builder.dart';
 
 import 'src/assists/wrap_with_ecco_builder.dart';
 import 'src/assists/wrap_with_ecco_consumer.dart';
-import 'src/lints.dart/avoid_dynamic_ecco_notifier.dart';
-import 'src/lints.dart/invalid_ripple_usage.dart';
-import 'src/lints.dart/missing_ecco_provider.dart';
+import 'src/lints/avoid_dynamic_ecco_notifier.dart';
+import 'src/lints/invalid_ripple_usage.dart';
+import 'src/lints/missing_ecco_provider.dart';
 
 PluginBase createPlugin() => _EccoLint();
 
