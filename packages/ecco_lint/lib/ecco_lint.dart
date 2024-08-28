@@ -6,6 +6,15 @@ import 'src/lints/avoid_dynamic_ecco_notifier.dart';
 import 'src/lints/invalid_ripple_usage.dart';
 import 'src/lints/missing_ecco_provider.dart';
 
+/// Creates and returns an instance of the Ecco lint plugin.
+///
+/// This function serves as the entry point for the custom lint system,
+/// instantiating the main plugin class that defines all custom lints
+/// and assists for the Ecco framework.
+///
+/// Returns:
+///   A [PluginBase] instance, specifically an [_EccoLint] object,
+///   which encapsulates all the custom lint rules and assists.
 PluginBase createPlugin() => _EccoLint();
 
 /// A custom lint plugin for the Ecco state management framework.
