@@ -1,86 +1,50 @@
-# Ecco Example
+# ecco_lint
 
-This example demonstrates how to use the Ecco package for state management in a Flutter application, following the MVVM (Model-View-ViewModel) pattern.
+A custom lint package for the Ecco state management framework in Flutter.
 
-## Prerequisites
+## Features
 
-- Flutter SDK version 3.4.4 or higher
-- Ecco package added to your `pubspec.yaml`
+ecco_lint provides custom lint rules and assists to help developers use the Ecco framework correctly and efficiently:
 
-## Running the Example
+### Lint Rules
 
-1. Clone the Ecco repository
-2. Navigate to the example directory
-3. Run `flutter pub get`
-4. Run `flutter run`
+- `avoid_dynamic_ecco_notifier`: Warns against using dynamic types for EccoNotifier.
+- `missing_ecco_provider`: Ensures EccoBuilder and EccoConsumer are used within an EccoProvider.
+- `invalid_ripple_usage`: Checks for correct usage of the ripple method in EccoNotifier.
 
-## What This Example Demonstrates
+### Assists
 
-This example shows how to:
+- `wrap_with_ecco_builder`: Helps wrap a widget with EccoBuilder.
+- `wrap_with_ecco_consumer`: Helps wrap a widget with EccoConsumer.
 
-1. Create `EccoNotifier`s to manage state for both models and viewmodels
-2. Use `EccoProvider` to make the state available to the widget tree
-3. Use `EccoBuilder` to rebuild parts of the UI when state changes
-4. Use `EccoConsumer` to access both model and viewmodel in a widget
+## Installation
 
-## Key Code Snippets
+Run this command in the root of your Flutter project:
 
-### Creating EccoNotifiers for Model and ViewModel
-
-```dart
-final counterModel = EccoNotifier<int>(0);
-final counterViewModel = EccoNotifier<CounterViewModel>(CounterViewModel());
+```bash
+flutter pub add -d ecco_lint custom_lint
 ```
 
-### Using EccoProvider
+Then edit your `analysis_options.yaml` file and add these lines of code:
 
-```dart
-EccoProvider<int>(
-  notifier: counterModel,
-  child: EccoProvider<CounterViewModel>(
-    notifier: counterViewModel,
-    child: MyApp(),
-  ),
-)
+```bash
+analyzer:
+  plugins:
+    - custom_lint
 ```
 
-### Using EccoBuilder
+Then run:
 
-```dart
-EccoBuilder<int>(
-  builder: (context, count) {
-    return Text('Count: $count');
-  },
-)
+```bash
+flutter clean
+flutter pub get
+dart run custom_lint
 ```
 
-### Using EccoConsumer
+This will enable all the lint rules provided by `ecco_lint`.
 
-```dart
-EccoConsumer<int, CounterViewModel>(
-  builder: (context, count, viewModel) {
-    return ElevatedButton(
-      onPressed: () => viewModel.increment(),
-      child: Text('Increment'),
-    );
-  },
-)
-```
+## Contributing
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## MVVM Pattern with Ecco
-
-Ecco encourages the use of the MVVM pattern:
-
-- **Model**: Represents the data and business logic. In this example, it's a simple `int` for the counter.
-- **ViewModel**: Contains the presentation logic and commands that the view can use. It's represented by the `CounterViewModel` class.
-- **View**: The UI components that display the data and interact with the user. In Flutter, these are your widgets.
-
-The `EccoConsumer` allows you to easily connect your View with both the Model and ViewModel, promoting a clean separation of concerns.
-
-## Additional Resources
-
-- [Ecco Package Documentation](https://pub.dev/packages/ecco)
-- [Flutter State Management Guide](https://flutter.dev/docs/development/data-and-backend/state-mgmt/options)
-- [MVVM Pattern in Flutter](https://medium.com/flutter-community/flutter-mvvm-architecture-f8bed2521958)
-
-Feel free to explore and modify this example to better understand how Ecco works with the MVVM pattern.
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

@@ -25,7 +25,7 @@ dependencies:
   ecco: ^0.0.1+7
 
 dev_dependencies:
-  ecco_lint: ^0.0.1+2
+  ecco_lint: ^0.0.1+4
 ```
 
 Then run:
