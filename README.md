@@ -22,10 +22,10 @@ To use these packages in your Flutter project, add them to your `pubspec.yaml` f
 
 ```yaml
 dependencies:
-  ecco: ^0.0.1
+  ecco: ^0.0.1+7
 
 dev_dependencies:
-  ecco_lint: ^0.0.1
+  ecco_lint: ^0.0.1+2
 ```
 
 Then run:
